@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "related": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "You Might Also Like"
+      }
+    }
+  },
+  "order": ["main", "related"]
+}

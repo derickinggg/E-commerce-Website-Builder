@@ -1,0 +1,7 @@
+<article class="card" style="padding:1rem">
+  <a href="{{ product.url }}">
+    {{ product.featured_image | image_url: width: 800 | image_tag: alt: product.title, loading: 'lazy' }}
+    <h3 style="margin:.75rem 0 0">{{ product.title }}</h3>
+    <p class="muted">{{ product.price | money }}</p>
+  </a>
+</article>

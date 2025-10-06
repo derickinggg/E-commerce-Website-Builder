@@ -1,0 +1,37 @@
+<footer class="card" style="margin-top:4rem;padding:2rem 1.25rem">
+  <div class="page-width" style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2rem">
+    <div>
+      <div class="logo">JERSEY SOCIETY</div>
+      <p class="muted">Premium jerseys. Clean UI. Fast checkout.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="{{ routes.all_products_collection_url }}">All Products</a></li>
+        <li><a href="/collections">Collections</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/pages/contact">Contact</a></li>
+        <li><a href="/pages/size-guide">Size Guide</a></li>
+        <li><a href="/pages/faq">FAQs</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="{{ shop.shipping_policy.url }}">Shipping</a></li>
+        <li><a href="{{ shop.refund_policy.url }}">Returns</a></li>
+        <li><a href="{{ shop.terms_of_service.url }}">Terms</a></li>
+        <li><a href="{{ shop.privacy_policy.url }}">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="page-width" style="margin-top:1.5rem;display:flex;justify-content:space-between">
+    <span class="muted">© {{ 'now' | date: '%Y' }} JERSEY SOCIETY</span>
+    <span class="muted">Secured checkout • Worldwide shipping</span>
+  </div>
+</footer>
+{% schema %}{ "name": "Footer", "settings": [] }{% endschema %}

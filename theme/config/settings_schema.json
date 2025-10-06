@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Theme settings",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Logo" },
+      { "type": "text", "id": "tagline", "label": "Tagline", "default": "Designed for fans of the future" }
+    ]
+  }
+]

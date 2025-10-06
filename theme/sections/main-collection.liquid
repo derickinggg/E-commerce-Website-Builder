@@ -1,0 +1,65 @@
+{% paginate collection.products by 12 %}
+
+<section class="card" style="padding:2rem 1.25rem">
+  <div class="page-width">
+    
+    <!-- Collection Header -->
+    <div style="text-align:center;margin-bottom:2rem">
+      <h1>{{ collection.title }}</h1>
+      {% if collection.description != blank %}
+        <p class="muted" style="max-width:600px;margin:1rem auto 0">{{ collection.description }}</p>
+      {% endif %}
+      <p class="muted" style="margin-top:1rem">{{ collection.products_count }} products</p>
+    </div>
+    
+    <!-- Filter & Sort (placeholder) -->
+    <div style="display:flex;justify-content:space-between;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.08)">
+      <div class="muted">Showing {{ paginate.current_offset | plus: 1 }}–{{ paginate.current_offset | plus: paginate.page_size | at_most: collection.products_count }} of {{ collection.products_count }}</div>
+      <div>
+        <label for="sort" class="muted">Sort by:</label>
+        <select id="sort" class="input" style="margin-left:.5rem">
+          <option>Featured</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+          <option>Newest</option>
+        </select>
+      </div>
+    </div>
+    
+    <!-- Products Grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem">
+      {% for product in collection.products %}
+        {% render 'product-card', product: product %}
+      {% else %}
+        <p class="muted">No products found in this collection.</p>
+      {% endfor %}
+    </div>
+    
+    <!-- Pagination -->
+    {% if paginate.pages > 1 %}
+      <div style="display:flex;justify-content:center;gap:1rem;margin-top:3rem">
+        {% if paginate.previous %}
+          <a class="btn" href="{{ paginate.previous.url }}">← Previous</a>
+        {% endif %}
+        
+        <span class="muted" style="display:flex;align-items:center">
+          Page {{ paginate.current_page }} of {{ paginate.pages }}
+        </span>
+        
+        {% if paginate.next %}
+          <a class="btn" href="{{ paginate.next.url }}">Next →</a>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+  </div>
+</section>
+
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Collection Products",
+  "settings": []
+}
+{% endschema %}

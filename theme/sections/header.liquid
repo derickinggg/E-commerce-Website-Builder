@@ -1,0 +1,15 @@
+<header class="card header-sticky" role="banner">
+  <div class="page-width" style="display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem">
+    <a href="{{ routes.root_url }}" class="logo" aria-label="JERSEY SOCIETY">JERSEY SOCIETY</a>
+    <nav aria-label="Primary" style="display:flex;gap:1rem;margin-left:auto;align-items:center">
+      <a href="{{ routes.collections_url }}">Shop</a>
+      <a href="/pages/about">About</a>
+      <a href="/pages/contact">Contact</a>
+      <form action="{{ routes.search_url }}" method="get" role="search">
+        <input class="input" name="q" placeholder="Search jerseys, teams, players…" />
+      </form>
+      <a class="btn" href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
+    </nav>
+  </div>
+</header>
+{% schema %}{ "name": "Header", "settings": [] }{% endschema %}

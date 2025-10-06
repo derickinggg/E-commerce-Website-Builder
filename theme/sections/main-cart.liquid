@@ -1,0 +1,119 @@
+<section class="card" style="padding:2rem;margin-top:2rem">
+  <div class="page-width">
+    <h1 style="margin-bottom:2rem">Shopping Cart</h1>
+    
+    {% if cart.item_count > 0 %}
+      <form action="{{ routes.cart_url }}" method="post" novalidate>
+        
+        <div style="display:grid;gap:1.5rem;margin-bottom:2rem">
+          {% for item in cart.items %}
+            <div class="card" style="padding:1.5rem;display:grid;grid-template-columns:120px 1fr auto;gap:1.5rem;align-items:center">
+              
+              <!-- Product Image -->
+              <a href="{{ item.url }}">
+                {{ item.image | image_url: width: 300 | image_tag: alt: item.title, loading: 'lazy', style: 'border-radius:8px' }}
+              </a>
+              
+              <!-- Product Info -->
+              <div>
+                <h3 style="margin:0 0 .5rem">
+                  <a href="{{ item.url }}">{{ item.product.title }}</a>
+                </h3>
+                {% unless item.product.has_only_default_variant %}
+                  <p class="muted" style="margin:0 0 .5rem">{{ item.variant.title }}</p>
+                {% endunless %}
+                <p style="color:var(--primary);font-weight:600;margin:0">{{ item.price | money }}</p>
+              </div>
+              
+              <!-- Quantity & Remove -->
+              <div style="display:flex;flex-direction:column;gap:1rem;align-items:flex-end">
+                <div style="display:flex;align-items:center;gap:.5rem">
+                  <label for="updates_{{ item.key }}" class="muted" style="font-size:.9rem">Qty:</label>
+                  <input 
+                    type="number" 
+                    name="updates[]" 
+                    id="updates_{{ item.key }}" 
+                    value="{{ item.quantity }}" 
+                    min="0" 
+                    class="input"
+                    style="width:70px;text-align:center"
+                  >
+                </div>
+                <p style="font-weight:600;margin:0">{{ item.line_price | money }}</p>
+                <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" class="muted" style="font-size:.85rem">Remove</a>
+              </div>
+              
+            </div>
+          {% endfor %}
+        </div>
+        
+        <!-- Cart Totals -->
+        <div style="display:grid;grid-template-columns:1fr 400px;gap:2rem">
+          
+          <!-- Order Note -->
+          <div>
+            <label for="note" style="display:block;margin-bottom:.5rem;font-weight:600">Order Note</label>
+            <textarea 
+              name="note" 
+              id="note" 
+              class="input" 
+              style="width:100%;min-height:100px;resize:vertical;font-family:inherit"
+              placeholder="Special instructions for your order...">{{ cart.note }}</textarea>
+          </div>
+          
+          <!-- Summary -->
+          <div class="card" style="padding:1.5rem">
+            <h3 style="margin:0 0 1rem">Order Summary</h3>
+            
+            <div style="display:flex;justify-content:space-between;margin-bottom:.75rem">
+              <span class="muted">Subtotal ({{ cart.item_count }} items)</span>
+              <span>{{ cart.total_price | money }}</span>
+            </div>
+            
+            <div style="display:flex;justify-content:space-between;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.08)">
+              <span class="muted">Shipping</span>
+              <span class="muted">Calculated at checkout</span>
+            </div>
+            
+            <div style="display:flex;justify-content:space-between;font-size:1.25rem;font-weight:700;margin-bottom:1.5rem">
+              <span>Total</span>
+              <span style="color:var(--primary)">{{ cart.total_price | money }}</span>
+            </div>
+            
+            <button type="submit" name="update" class="btn" style="width:100%;margin-bottom:.75rem">
+              Update Cart
+            </button>
+            
+            <button type="submit" name="checkout" class="btn" style="width:100%;background:var(--primary);color:var(--bg);border-color:var(--primary);font-weight:700">
+              Proceed to Checkout
+            </button>
+            
+            <p class="muted" style="text-align:center;margin-top:1rem;font-size:.85rem">
+              Secure checkout • Free shipping over $100
+            </p>
+          </div>
+          
+        </div>
+        
+      </form>
+      
+    {% else %}
+      
+      <!-- Empty Cart -->
+      <div style="text-align:center;padding:3rem 0">
+        <h2 style="margin-bottom:1rem">Your cart is empty</h2>
+        <p class="muted" style="margin-bottom:2rem">Add some jerseys to get started!</p>
+        <a class="btn" href="{{ routes.collections_url }}">Shop Jerseys</a>
+      </div>
+      
+    {% endif %}
+    
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart Page",
+  "settings": []
+}
+{% endschema %}

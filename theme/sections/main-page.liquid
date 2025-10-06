@@ -1,0 +1,43 @@
+<section class="card" style="padding:2rem;margin-top:2rem">
+  <div class="page-width">
+    <h1 style="margin-bottom:1.5rem">{{ page.title }}</h1>
+    <div class="page-content">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+<style>
+.page-content {
+  line-height: 1.8;
+}
+.page-content h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.page-content h3 {
+  margin-top: 1.5rem;
+  margin-bottom: .75rem;
+}
+.page-content p {
+  margin-bottom: 1rem;
+}
+.page-content ul, .page-content ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+.page-content li {
+  margin: .5rem 0;
+}
+.page-content a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Page Content",
+  "settings": []
+}
+{% endschema %}
