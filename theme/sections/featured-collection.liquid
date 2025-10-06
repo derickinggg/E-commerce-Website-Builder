@@ -1,0 +1,67 @@
+{% assign collection = collections[section.settings.collection] %}
+{% if collection == blank %}
+  {% assign collection = collections.all %}
+{% endif %}
+
+<section class="card" style="padding:2rem 1.25rem;margin-top:2rem">
+  <div class="page-width">
+    <h2 style="text-align:center;margin-bottom:2rem">
+      {% if section.settings.title != blank %}
+        {{ section.settings.title }}
+      {% else %}
+        {{ collection.title }}
+      {% endif %}
+    </h2>
+    
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem">
+      {% for product in collection.products limit: section.settings.products_to_show %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.show_view_all %}
+      <div style="text-align:center;margin-top:2rem">
+        <a class="btn" href="{{ collection.url }}">View All</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured Jerseys"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4,
+      "label": "Products to show"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View All' button",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,90 @@
+{% assign product = product %}
+
+<section class="card" style="padding:2rem;margin-top:2rem">
+  <div class="page-width">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start">
+      
+      <!-- Product Images -->
+      <div>
+        {% if product.featured_media %}
+          {{ product.featured_media | image_url: width: 1200 | image_tag: alt: product.title, loading: 'eager' }}
+        {% else %}
+          <div style="aspect-ratio:1;background:rgba(255,255,255,.05);border-radius:12px"></div>
+        {% endif %}
+        
+        {% if product.media.size > 1 %}
+          <div style="display:flex;gap:.75rem;margin-top:1rem">
+            {% for media in product.media limit: 4 %}
+              <div style="width:80px;height:80px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.08)">
+                {{ media | image_url: width: 200 | image_tag: alt: product.title, loading: 'lazy' }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      
+      <!-- Product Info -->
+      <div>
+        <h1>{{ product.title }}</h1>
+        <p class="muted" style="margin:.5rem 0 1.5rem">{{ product.vendor }}</p>
+        
+        <div style="font-size:2rem;font-weight:700;color:var(--primary);margin-bottom:1.5rem">
+          {{ product.price | money }}
+          {% if product.compare_at_price > product.price %}
+            <span class="muted" style="font-size:1.2rem;text-decoration:line-through;margin-left:.5rem">
+              {{ product.compare_at_price | money }}
+            </span>
+          {% endif %}
+        </div>
+        
+        <div style="margin-bottom:1.5rem">
+          {{ product.description }}
+        </div>
+        
+        <!-- Product Form -->
+        {% form 'product', product %}
+          {% unless product.has_only_default_variant %}
+            <div style="margin-bottom:1rem">
+              {% for option in product.options_with_values %}
+                <label style="display:block;margin-bottom:.5rem;font-weight:600">{{ option.name }}</label>
+                <select name="options[{{ option.name }}]" class="input" style="width:100%;margin-bottom:1rem">
+                  {% for value in option.values %}
+                    <option value="{{ value }}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              {% endfor %}
+            </div>
+          {% endunless %}
+          
+          <button type="submit" name="add" class="btn" style="width:100%;padding:1rem;font-size:1.1rem;font-weight:600">
+            {% if product.available %}
+              Add to Cart — {{ product.price | money }}
+            {% else %}
+              Sold Out
+            {% endif %}
+          </button>
+        {% endform %}
+        
+        <!-- Product Meta -->
+        <div style="margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.08)">
+          <p class="muted" style="margin:.25rem 0">
+            <strong>SKU:</strong> {{ product.selected_or_first_available_variant.sku }}
+          </p>
+          {% if product.tags.size > 0 %}
+            <p class="muted" style="margin:.25rem 0">
+              <strong>Tags:</strong> {{ product.tags | join: ', ' }}
+            </p>
+          {% endif %}
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Information",
+  "settings": []
+}
+{% endschema %}

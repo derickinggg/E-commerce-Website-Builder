@@ -1,0 +1,24 @@
+# JERSEY SOCIETY - ThemeFlow ignore patterns
+
+# Development files
+node_modules/
+.git/
+.github/
+*.log
+.DS_Store
+
+# Source files (if using build process)
+src/
+build-css.js
+
+# Documentation
+README.md
+*.md
+
+# Config files
+.gitignore
+.shopifyignore
+package.json
+package-lock.json
+
+# Only deploy the /theme directory contents

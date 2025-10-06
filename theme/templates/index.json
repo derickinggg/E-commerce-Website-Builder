@@ -1,0 +1,7 @@
+{
+  "sections": {
+    "hero": { "type": "hero-feature", "settings": {} },
+    "featured": { "type": "featured-collection", "settings": { "title": "Featured Jerseys" } }
+  },
+  "order": ["hero", "featured"]
+}

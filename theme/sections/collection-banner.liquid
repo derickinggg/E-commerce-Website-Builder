@@ -1,0 +1,14 @@
+<section class="card" style="padding:2rem;text-align:center;margin-top:2rem">
+  {% if collection.image %}
+    <div style="height:300px;border-radius:12px;overflow:hidden;margin-bottom:1.5rem">
+      {{ collection.image | image_url: width: 1600 | image_tag: alt: collection.title, loading: 'eager', style: 'width:100%;height:100%;object-fit:cover' }}
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Collection Banner",
+  "settings": []
+}
+{% endschema %}

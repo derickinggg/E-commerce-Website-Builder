@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    {{ content_for_header }}
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{% if page_title %}{{ page_title }} — {% endif %}JERSEY SOCIETY</title>
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+  </head>
+  <body>
+    {% section 'header' %}
+    <main id="MainContent" class="page-width" role="main">
+      {{ content_for_layout }}
+    </main>
+    {% section 'footer' %}
+    {{ 'theme.js' | asset_url | script_tag }}
+  </body>
+</html>
